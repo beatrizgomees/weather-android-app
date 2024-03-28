@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
@@ -97,6 +98,14 @@ fun LoginPage(modifier: Modifier = Modifier){
             }) {
                 Text(text = "Limpar")
             }
+        }
+
+        Button(onClick = {
+            activity?.startActivity(Intent(activity, RegisterActivity::class.java).setFlags(
+                FLAG_ACTIVITY_SINGLE_TOP
+            ))
+        }) {
+            Text(text = "Registro")
         }
     }
 }
