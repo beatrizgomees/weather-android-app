@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +30,8 @@ fun HomePage(modifier: Modifier = Modifier){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(id = R.color.teal_700)),
+            .background(colorResource(id = R.color.teal_700))
+            .wrapContentSize(Alignment.Center),
     ) {
         Text("Home",
             fontSize = 20.sp,

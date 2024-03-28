@@ -26,7 +26,7 @@ import com.github.beatrizgomees.weatherapp.pages.ui.theme.WeatherAppTheme
 
 
 @Composable
-fun ListPage(name: String, modifier: Modifier = Modifier) {
+fun ListPage(modifier: Modifier = Modifier) {
     val activity = LocalContext.current as? Activity
 
     Column(
@@ -35,7 +35,7 @@ fun ListPage(name: String, modifier: Modifier = Modifier) {
            .background(colorResource(id = R.color.purple_200))
            .wrapContentSize(Alignment.Center)
     ){
-        Text(text = "Favoritas",
+        Text(text = "Favorites",
             fontWeight = FontWeight.Bold,
             color = Color.White,
             modifier = Modifier.align(Alignment.CenterHorizontally),

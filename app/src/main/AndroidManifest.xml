@@ -13,6 +13,16 @@
         android:theme="@style/Theme.WeatherApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.nav.Nav"
+            android:exported="false"
+            android:label="@string/title_activity_nav"
+            android:theme="@style/Theme.WeatherApp" />
+        <activity
+            android:name=".ui.nav.BottomNavBar"
+            android:exported="false"
+            android:label="@string/title_activity_bottom_nav_bar"
+            android:theme="@style/Theme.WeatherApp" />
+        <activity
             android:name=".pages.MapPage"
             android:exported="false"
             android:label="@string/title_activity_map_page"
