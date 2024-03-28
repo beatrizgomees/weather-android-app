@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.beatrizgomees.weatherapp.activitys.ui.theme.WeatherAppTheme
+import com.github.beatrizgomees.weatherapp.components.InputTextCustom
 
 class RegisterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,13 +71,13 @@ fun RegisterPage(modifier: Modifier = Modifier) {
         ){
         Text("Faça sua conta aqui", fontSize = 24.sp)
 
-        OutlinedTextField(value = name ,  label = {Text(text = "Digite seu nome")},  modifier = Modifier.fillMaxWidth(), onValueChange = {name  = it} )
+        InputTextCustom(value = name ,  label = "Name", onValueChange = {name  = it} )
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(value = email, label = {Text(text = "Digite seu e-mail")}, modifier = Modifier.fillMaxWidth(), onValueChange = {email = it}  )
+        InputTextCustom(value = email ,  label = "Email", onValueChange = {email  = it} )
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(value = password, label = {Text(text = "Digite sua senha")}, modifier = Modifier.fillMaxWidth(), onValueChange = {password = it},  visualTransformation = PasswordVisualTransformation())
+        InputTextCustom(value = password ,  label = "Password", onValueChange = {password  = it}, isPassword = true )
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(value = confirmPassword, label = {Text(text = "Confirme a senha")}, modifier = Modifier.fillMaxWidth(), onValueChange = {confirmPassword = it},  visualTransformation = PasswordVisualTransformation())
+        InputTextCustom(value = confirmPassword ,  label = "Repeat password",  onValueChange = {confirmPassword  = it}, isPassword = true )
         Spacer(modifier = Modifier.size(24.dp))
 
         Row(modifier = modifier){

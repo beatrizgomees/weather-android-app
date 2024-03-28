@@ -2,4 +2,5 @@
     <string name="app_name">WeatherApp</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_input_text_custom">InputTextCustom</string>
 </resources>

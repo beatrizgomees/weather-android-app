@@ -13,6 +13,11 @@
         android:theme="@style/Theme.WeatherApp"
         tools:targetApi="31">
         <activity
+            android:name=".components.InputTextCustom"
+            android:exported="false"
+            android:label="@string/title_activity_input_text_custom"
+            android:theme="@style/Theme.WeatherApp" />
+        <activity
             android:name=".activitys.RegisterActivity"
             android:exported="false"
             android:label="@string/title_activity_register"

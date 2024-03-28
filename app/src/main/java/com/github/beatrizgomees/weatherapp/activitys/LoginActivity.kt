@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Modifier
 import com.github.beatrizgomees.weatherapp.activitys.ui.theme.WeatherAppTheme
+import com.github.beatrizgomees.weatherapp.components.InputTextCustom
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,23 +67,14 @@ fun LoginPage(modifier: Modifier = Modifier){
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Text(
-            text = "Bem-vindo/a!",
+            text = "Welcome!!",
             fontSize = 24.sp
         )
-        OutlinedTextField(
-            value = email,
-            label = {Text(text = "Digite seu e-mail")},
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = {email = it}
-        )
+      InputTextCustom(label = "Name", onValueChange = {email = it} , value = email)
         Spacer(modifier = Modifier.size(24.dp))
 
-        OutlinedTextField(value = password,
-            label = {Text(text = "Digite sua senha")},
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = {password = it},
-        visualTransformation = PasswordVisualTransformation()
-        )
+       InputTextCustom(label = "Password", onValueChange = {password = it}, value = password, isPassword = true )
+
         Row(modifier = modifier){
             Button(onClick = {
                 Toast.makeText(activity, "Login Ok!", Toast.LENGTH_LONG).show()
@@ -96,7 +88,7 @@ fun LoginPage(modifier: Modifier = Modifier){
             Button(onClick = {
                 email = ""; password = ""
             }) {
-                Text(text = "Limpar")
+                Text(text = "Clean")
             }
         }
 
