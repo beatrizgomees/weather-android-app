@@ -1,4 +1,4 @@
-package com.github.beatrizgomees.weatherapp.ui.theme
+package com.github.beatrizgomees.weatherapp.pages.ui.theme
 
 import android.app.Activity
 import android.os.Build

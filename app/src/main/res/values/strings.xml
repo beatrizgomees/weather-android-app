@@ -3,4 +3,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_input_text_custom">InputTextCustom</string>
+    <string name="title_activity_list_page">ListPage</string>
+    <string name="title_activity_map_page">MapPage</string>
 </resources>
