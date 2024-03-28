@@ -1,4 +1,4 @@
-package com.github.beatrizgomees.weatherapp
+package com.github.beatrizgomees.weatherapp.activitys
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
