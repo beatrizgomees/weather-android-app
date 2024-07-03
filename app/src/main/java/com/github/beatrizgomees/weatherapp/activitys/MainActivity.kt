@@ -15,8 +15,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.github.beatrizgomees.weatherapp.activitys.ui.theme.WeatherAppTheme
+import com.github.beatrizgomees.weatherapp.model.MainViewModel
 import com.github.beatrizgomees.weatherapp.ui.nav.BottomNavBar
 import com.github.beatrizgomees.weatherapp.ui.nav.MainNavHost
 import androidx.compose.material3.FloatingActionButton as FloatingActionButton1
@@ -27,6 +29,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            val mainViewModel: MainViewModel = viewModel()
+
+            // Passar o ViewModel para o MainNavHost
+            MainNavHost(navController, mainViewModel)
             WeatherAppTheme {
                 Scaffold(
                     topBar = {
@@ -52,7 +58,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                         innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        MainNavHost(navController = navController)
+                        MainNavHost(navController = navController, mainViewModel)
                     }
                 }
             }
