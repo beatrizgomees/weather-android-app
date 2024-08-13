@@ -1,6 +1,7 @@
 package com.github.beatrizgomees.weatherapp.pages
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,10 +23,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.github.beatrizgomees.weatherapp.R
+import com.github.beatrizgomees.weatherapp.model.MainViewModel
 import com.github.beatrizgomees.weatherapp.pages.ui.theme.WeatherAppTheme
 
 @Composable
-fun MapPage(modifier: Modifier = Modifier) {
+fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context) {
     val activity = LocalContext.current as? Activity
     Column(
         modifier = Modifier

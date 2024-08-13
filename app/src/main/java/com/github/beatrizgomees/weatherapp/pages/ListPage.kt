@@ -1,5 +1,6 @@
 package com.github.beatrizgomees.weatherapp.pages
 
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,7 +25,7 @@ import com.github.beatrizgomees.weatherapp.model.City
 import com.github.beatrizgomees.weatherapp.model.MainViewModel
 
 @Composable
-fun ListPage(viewModel: MainViewModel) {
+fun ListPage(viewModel: MainViewModel, context: Context) {
     val cityList = viewModel.cities
 
     LazyColumn (

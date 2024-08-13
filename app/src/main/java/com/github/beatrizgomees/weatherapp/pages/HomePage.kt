@@ -1,6 +1,7 @@
 package com.github.beatrizgomees.weatherapp.pages
 
 import android.app.Activity
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,10 +23,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.beatrizgomees.weatherapp.R
+import com.github.beatrizgomees.weatherapp.model.MainViewModel
 
-@Preview(showBackground = true)
 @Composable
-fun HomePage(modifier: Modifier = Modifier){
+fun HomePage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context){
     val activity = LocalContext.current as? Activity
     Column(
         modifier = Modifier

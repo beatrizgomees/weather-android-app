@@ -1,5 +1,6 @@
 package com.github.beatrizgomees.weatherapp.ui.nav
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -12,17 +13,17 @@ import com.github.beatrizgomees.weatherapp.pages.ListPage
 import com.github.beatrizgomees.weatherapp.pages.MapPage
 
 @Composable
-fun MainNavHost(navController: NavHostController, viewModel: MainViewModel) {
+fun MainNavHost(navController: NavHostController, viewModel: MainViewModel, context: Context) {
     val viewModel: MainViewModel = viewModel()
  NavHost(navController, startDestination = BottomNavItem.HomePage.route ){
      composable(route = BottomNavItem.HomePage.route){
-         HomePage()
+         HomePage(viewModel = viewModel, context = context)
      }
      composable(route = BottomNavItem.ListPage.route){
-         ListPage(viewModel)
+         ListPage(viewModel = viewModel, context = context)
      }
      composable(route = BottomNavItem.MapPage.route){
-         MapPage()
+         MapPage(viewModel = viewModel, context = context)
         }
     }
 }
