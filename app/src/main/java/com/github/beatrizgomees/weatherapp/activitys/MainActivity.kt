@@ -33,6 +33,8 @@ import com.github.beatrizgomees.weatherapp.ui.CityDialog
 import com.github.beatrizgomees.weatherapp.ui.nav.BottomNavBar
 import com.github.beatrizgomees.weatherapp.ui.nav.BottomNavItem
 import com.github.beatrizgomees.weatherapp.ui.nav.MainNavHost
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import androidx.compose.material3.FloatingActionButton as FloatingActionButton1
 
 
@@ -69,7 +71,8 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             title = { Text("Welcome!!") },
                             actions = {
-                                IconButton( onClick = { finish() } ) {
+                                IconButton( onClick = { Firebase.auth.signOut()
+                                    finish() } ) {
                                         Icon(imageVector = Icons.Default.ExitToApp, contentDescription = "Exit")
 
 
