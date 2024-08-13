@@ -25,21 +25,37 @@ import androidx.compose.ui.unit.sp
 import com.github.beatrizgomees.weatherapp.R
 import com.github.beatrizgomees.weatherapp.model.MainViewModel
 import com.github.beatrizgomees.weatherapp.pages.ui.theme.WeatherAppTheme
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context) {
     val activity = LocalContext.current as? Activity
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colorResource(id = R.color.purple_700))
-            .wrapContentSize(Alignment.Center)
-    ){
-        Text(text = "Maps",
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            color = Color.White,
-            fontSize = 20.sp)
+    val recife = LatLng(-8.05, -34.9)
+    val caruaru = LatLng(-8.27, -35.98)
+    val joaopessoa = LatLng(-7.12, -34.84)
+    val camPosState = rememberCameraPositionState ()
+    GoogleMap (modifier = Modifier.fillMaxSize(),
+        cameraPositionState = camPosState,
+        onMapClick = { viewModel.add("Nova cidade", location = it) }) {
+        Marker(
+            state = MarkerState(position = recife),
+            title = "Recife",
+            snippet = "Marcador em Recife",
+            icon = BitmapDescriptorFactory.defaultMarker(
+                BitmapDescriptorFactory.HUE_BLUE)
+        )
+
+        viewModel.cities.forEach{
+            if(it.location != null){
+                Marker(state = MarkerState(position = it.location!!),
+                title = it.name, snippet = "${it.location}")
+
+            }
+        }
     }
 }
