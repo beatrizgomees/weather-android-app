@@ -1,5 +1,6 @@
 package com.github.beatrizgomees.weatherapp.pages
 
+import FBDatabase
 import android.Manifest
 import android.app.Activity
 import android.content.Context
@@ -29,7 +30,7 @@ fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Co
     val caruaru = LatLng(-8.27, -35.98)
     val joaopessoa = LatLng(-7.12, -34.84)
     val camPosState = rememberCameraPositionState ()
-
+    val fbDB = remember { FBDatabase (viewModel) }
     val hasLocationPermission by remember {
         mutableStateOf(
             ContextCompat.checkSelfPermission(context,

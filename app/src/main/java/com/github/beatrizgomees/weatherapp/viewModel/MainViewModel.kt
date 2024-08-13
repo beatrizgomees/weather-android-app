@@ -10,7 +10,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
-class MainViewModel : ViewModel() {
+class MainViewModel : ViewModel(), FBDatabase.Listener{
     private val _user = mutableStateOf (User("", ""))
     val user : User
         get() = _user.value
@@ -34,8 +34,6 @@ class MainViewModel : ViewModel() {
 
     get() = _cities
 
-
-
     fun remove(city: City) {
         _cities.remove(city)
     }
@@ -43,10 +41,20 @@ class MainViewModel : ViewModel() {
         _cities.add(City(city, "Carregando clima...", location))
     }
 
+    override fun onUserLoaded(user: User) {
+        _user.value = user
+    }
+    override fun onCityAdded(city: City) {
+        _cities.add(city)
+    }
+    override fun onCityRemoved(city: City) {
+        _cities.remove(city)
+    }
+
 
 }
 
 private fun getCities() = List(30){
-        i -> City(name = "CIdade $i", weather = "Carregando Clima...")
+        i -> City(name = "Cidade $i", weather = "Carregando Clima...")
 }
 

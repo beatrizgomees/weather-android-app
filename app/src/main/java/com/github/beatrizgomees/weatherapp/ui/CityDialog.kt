@@ -24,14 +24,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.github.beatrizgomees.weatherapp.model.City
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: String) -> Unit) {
+fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: City) -> Unit) {
     val cityName = remember {
         mutableStateOf("")
     }
+
 
     Dialog(onDismissRequest = { onDismiss() } ) {
         Surface(shape = RoundedCornerShape(16.dp)) {
@@ -54,7 +56,9 @@ fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: String) -> Unit) {
                     onValueChange = { cityName.value = it })
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
-                    onClick = { onConfirm (cityName.value) },
+                    onClick = {
+                        cityName.value
+                    },
                     modifier = Modifier.fillMaxWidth().height(50.dp)
                 ) { Text(text = "OK") }
             }

@@ -1,5 +1,6 @@
 package com.github.beatrizgomees.weatherapp.pages
 
+import FBDatabase
 import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -21,20 +22,21 @@ import androidx.compose.material3.IconButton
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.remember
 import com.github.beatrizgomees.weatherapp.model.City
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 
 @Composable
 fun ListPage(viewModel: MainViewModel, context: Context) {
     val cityList = viewModel.cities
-
+    val fbDB = remember { FBDatabase (viewModel) }
     LazyColumn (
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ){
         items(cityList){
-            city -> CityItem(city = city, onClick = { /*TODO*/ }, onClose = { viewModel.remove(city) })
+            city -> CityItem(city = city, onClick = { /*TODO*/ }, onClose = { fbDB.remove(city) })
         }
     }
 }

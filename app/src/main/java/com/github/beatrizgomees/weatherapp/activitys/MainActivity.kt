@@ -1,5 +1,6 @@
 package com.github.beatrizgomees.weatherapp.activitys
 
+import FBDatabase
 import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val mainViewModel: MainViewModel = viewModel()
-
+            val fbDB = remember { FBDatabase (mainViewModel) }
             if (!mainViewModel.loggedIn) {
                 this.finish()
             }
@@ -65,8 +66,8 @@ class MainActivity : ComponentActivity() {
                 if (showDialog) CityDialog(
                     onDismiss = { showDialog = false },
                     onConfirm = { city ->
-                        if (city.isNotBlank()){
-                            mainViewModel.add(city)
+                        if (city.name.isNotBlank()){
+                            fbDB.add(city)
                         }
                         showDialog = false
                     })
