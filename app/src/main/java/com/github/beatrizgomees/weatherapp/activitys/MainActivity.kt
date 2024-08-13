@@ -45,6 +45,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val mainViewModel: MainViewModel = viewModel()
+
+            if (!mainViewModel.loggedIn) {
+                this.finish()
+            }
             val context = LocalContext.current
             val navController = rememberNavController()
             val currentRoute = navController.currentBackStackEntryAsState()
