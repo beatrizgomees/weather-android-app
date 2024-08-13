@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -87,5 +88,11 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
     // Fragment KTX para usar `by viewModels` em Fragments
     implementation ("androidx.fragment:fragment-ktx:1.4.0")
+
+    // Google maps
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
+    // Google maps for compose
+    implementation("com.google.maps.android:maps-compose:2.8.0")
 
 }
