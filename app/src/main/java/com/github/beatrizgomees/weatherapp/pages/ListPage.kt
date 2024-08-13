@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
 import com.github.beatrizgomees.weatherapp.model.City
-import com.github.beatrizgomees.weatherapp.model.MainViewModel
+import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 
 @Composable
 fun ListPage(viewModel: MainViewModel, context: Context) {

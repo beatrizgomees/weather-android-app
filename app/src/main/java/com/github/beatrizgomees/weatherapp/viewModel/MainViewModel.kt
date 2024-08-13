@@ -1,14 +1,20 @@
-package com.github.beatrizgomees.weatherapp.model
+package com.github.beatrizgomees.weatherapp.viewModel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
+import com.github.beatrizgomees.weatherapp.model.City
+import com.github.beatrizgomees.weatherapp.model.User
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
 class MainViewModel : ViewModel() {
+    private val _user = mutableStateOf (User("", ""))
+    val user : User
+        get() = _user.value
+
     private val _cities = getCities().toMutableStateList()
     private var _loggedIn = mutableStateOf(false)
     val loggedIn : Boolean
@@ -44,4 +50,3 @@ private fun getCities() = List(30){
         i -> City(name = "CIdade $i", weather = "Carregando Clima...")
 }
 
-data class City(val name : String, var weather: String, var location: LatLng? = null)
