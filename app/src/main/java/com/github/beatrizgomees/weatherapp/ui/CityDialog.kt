@@ -29,7 +29,7 @@ import com.github.beatrizgomees.weatherapp.model.City
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: City) -> Unit) {
+fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: String) -> Unit) {
     val cityName = remember {
         mutableStateOf("")
     }
@@ -56,9 +56,7 @@ fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: City) -> Unit) {
                     onValueChange = { cityName.value = it })
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
-                    onClick = {
-                        cityName.value
-                    },
+                    onClick = { onConfirm(cityName.value) },
                     modifier = Modifier.fillMaxWidth().height(50.dp)
                 ) { Text(text = "OK") }
             }

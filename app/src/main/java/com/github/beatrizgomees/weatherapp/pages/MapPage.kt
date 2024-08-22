@@ -40,16 +40,32 @@ fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Co
     }
 
     GoogleMap (modifier = Modifier.fillMaxSize(),
+
+        cameraPositionState = camPosState,
+        onMapClick = { viewModel.add("Nova cidade", location = it) },
         properties = MapProperties(isMyLocationEnabled = hasLocationPermission),
         uiSettings = MapUiSettings(myLocationButtonEnabled = true),
-        cameraPositionState = camPosState,
-        onMapClick = { viewModel.add("Nova cidade", location = it) }) {
+        ) {
         Marker(
             state = MarkerState(position = recife),
             title = "Recife",
             snippet = "Marcador em Recife",
             icon = BitmapDescriptorFactory.defaultMarker(
                 BitmapDescriptorFactory.HUE_BLUE)
+        )
+        Marker(
+            state = MarkerState(position = caruaru),
+            title = "Caruaru",
+            snippet = "Marcador em Caruaru",
+            icon = BitmapDescriptorFactory.defaultMarker(
+                BitmapDescriptorFactory.HUE_RED)
+        )
+        Marker(
+            state = MarkerState(position = joaopessoa),
+            title = "João Pessoa",
+            snippet = "Marcador em João Pessoa",
+            icon = BitmapDescriptorFactory.defaultMarker(
+                BitmapDescriptorFactory.HUE_ROSE)
         )
 
         viewModel.cities.forEach{

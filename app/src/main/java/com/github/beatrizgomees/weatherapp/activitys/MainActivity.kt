@@ -29,6 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.beatrizgomees.weatherapp.activitys.ui.theme.WeatherAppTheme
+import com.github.beatrizgomees.weatherapp.model.City
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 import com.github.beatrizgomees.weatherapp.ui.CityDialog
 import com.github.beatrizgomees.weatherapp.ui.nav.BottomNavBar
@@ -66,9 +67,8 @@ class MainActivity : ComponentActivity() {
                 if (showDialog) CityDialog(
                     onDismiss = { showDialog = false },
                     onConfirm = { city ->
-                        if (city.name.isNotBlank()){
-                            fbDB.add(city)
-                        }
+                        if (city.isNotBlank()) mainViewModel.add(city)
+                        if (city.isNotBlank()) fbDB.add(City(name = city, weather = ""))
                         showDialog = false
                     })
                 Scaffold(
