@@ -14,7 +14,6 @@ import com.github.beatrizgomees.weatherapp.pages.MapPage
 
 @Composable
 fun MainNavHost(navController: NavHostController, viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
-    val viewModel: MainViewModel = viewModel()
  NavHost(navController, startDestination = BottomNavItem.HomePage.route ){
      composable(route = BottomNavItem.HomePage.route){
          HomePage(viewModel = viewModel, context = context, fbDatabase = fbDatabase)

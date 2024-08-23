@@ -29,14 +29,14 @@ import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 @Composable
 fun ListPage(viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
     val cityList = viewModel.cities
-    val fbDB = remember { FBDatabase (viewModel) }
+    //val fbDB = remember { FBDatabase (viewModel) }
     LazyColumn (
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ){
         items(cityList){
-            city -> CityItem(city = city, onClick = { /*TODO*/ }, onClose = { fbDB.remove(city) })
+            city -> CityItem(city = city, onClick = { /*TODO*/ }, onClose = { fbDatabase.remove(city) })
         }
     }
 }

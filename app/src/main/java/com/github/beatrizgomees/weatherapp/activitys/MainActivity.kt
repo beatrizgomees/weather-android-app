@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -47,7 +48,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val mainViewModel: MainViewModel = viewModel()
+            val mainViewModel: MainViewModel by viewModels()
             val fbDB = remember { FBDatabase (mainViewModel) }
             if (!mainViewModel.loggedIn) {
                 this.finish()
@@ -63,7 +64,7 @@ class MainActivity : ComponentActivity() {
             var showDialog by remember { mutableStateOf(false) }
 
             // Passar o ViewModel para o MainNavHost
-            MainNavHost(navController, mainViewModel, context, fbDatabase = fbDB)
+            //MainNavHost(navController, mainViewModel, context, fbDatabase = fbDB)
             WeatherAppTheme {
                 if (showDialog) CityDialog(
                     onDismiss = { showDialog = false },

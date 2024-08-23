@@ -31,7 +31,7 @@ fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Co
     val caruaru = LatLng(-8.27, -35.98)
     val joaopessoa = LatLng(-7.12, -34.84)
     val camPosState = rememberCameraPositionState ()
-    val fbDB = remember { FBDatabase (viewModel) }
+    //val fbDB = remember { FBDatabase (viewModel) }
     val hasLocationPermission by remember {
         mutableStateOf(
             ContextCompat.checkSelfPermission(context,
@@ -43,7 +43,7 @@ fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Co
     GoogleMap (modifier = Modifier.fillMaxSize(),
 
         cameraPositionState = camPosState,
-        onMapClick = { fbDB.add(  City(
+        onMapClick = { fbDatabase.add(  City(
             name = buildString {
                 append("City:")
                 append(it.latitude)
