@@ -27,7 +27,7 @@ import com.github.beatrizgomees.weatherapp.model.City
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 
 @Composable
-fun ListPage(viewModel: MainViewModel, context: Context) {
+fun ListPage(viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
     val cityList = viewModel.cities
     val fbDB = remember { FBDatabase (viewModel) }
     LazyColumn (

@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import com.github.beatrizgomees.weatherapp.model.City
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -24,7 +25,7 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context) {
+fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
     val activity = LocalContext.current as? Activity
     val recife = LatLng(-8.05, -34.9)
     val caruaru = LatLng(-8.27, -35.98)
@@ -42,7 +43,12 @@ fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Co
     GoogleMap (modifier = Modifier.fillMaxSize(),
 
         cameraPositionState = camPosState,
-        onMapClick = { viewModel.add("Nova cidade", location = it) },
+        onMapClick = { fbDB.add(  City(
+            name = buildString {
+                append("City:")
+                append(it.latitude)
+                append(it.longitude)
+            }, weather = "", location = it)) },
         properties = MapProperties(isMyLocationEnabled = hasLocationPermission),
         uiSettings = MapUiSettings(myLocationButtonEnabled = true),
         ) {

@@ -35,6 +35,7 @@ import com.github.beatrizgomees.weatherapp.ui.CityDialog
 import com.github.beatrizgomees.weatherapp.ui.nav.BottomNavBar
 import com.github.beatrizgomees.weatherapp.ui.nav.BottomNavItem
 import com.github.beatrizgomees.weatherapp.ui.nav.MainNavHost
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import androidx.compose.material3.FloatingActionButton as FloatingActionButton1
@@ -62,13 +63,13 @@ class MainActivity : ComponentActivity() {
             var showDialog by remember { mutableStateOf(false) }
 
             // Passar o ViewModel para o MainNavHost
-            MainNavHost(navController, mainViewModel, context)
+            MainNavHost(navController, mainViewModel, context, fbDatabase = fbDB)
             WeatherAppTheme {
                 if (showDialog) CityDialog(
                     onDismiss = { showDialog = false },
                     onConfirm = { city ->
-                        if (city.isNotBlank()) mainViewModel.add(city)
-                        if (city.isNotBlank()) fbDB.add(City(name = city, weather = ""))
+
+                        if (city.isNotBlank()) fbDB.add(City(name = city, weather = "", location = LatLng(0.0,-0.0)))
                         showDialog = false
                     })
                 Scaffold(
@@ -102,7 +103,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                         innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        MainNavHost(navController = navController, mainViewModel, context)
+                        MainNavHost(navController = navController, mainViewModel, context, fbDatabase = fbDB)
                     }
                 }
             }
