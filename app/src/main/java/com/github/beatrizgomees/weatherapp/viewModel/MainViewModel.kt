@@ -1,23 +1,23 @@
 package com.github.beatrizgomees.weatherapp.viewModel
 
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.github.beatrizgomees.weatherapp.model.City
 import com.github.beatrizgomees.weatherapp.model.User
-import com.google.android.gms.maps.model.LatLng
+import com.github.beatrizgomees.weatherapp.repo.Repository
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
-class MainViewModel : ViewModel(), FBDatabase.Listener{
+class MainViewModel : ViewModel(), FBDatabase.Listener, Repository.Listener{
     private val _user = mutableStateOf (User("", ""))
+    private val _cities = mutableStateMapOf<String, City>()
+    val cities : List<City>
+        get() = _cities.values.toList()
 
     val user : User
         get() = _user.value
-
-    private val _cities = mutableStateListOf<City>()
 
     private var _loggedIn = mutableStateOf(false)
 
@@ -38,20 +38,9 @@ class MainViewModel : ViewModel(), FBDatabase.Listener{
         Firebase.auth.removeAuthStateListener(listener)
     }
 
-    val cities : List<City>
-
-    get() = _cities
-
-
-    override fun onUserLoaded(user: User) {
-        _user.value = user
-    }
-    override fun onCityAdded(city: City) {
-        _cities.add(city)
-    }
-    override fun onCityRemoved(city: City) {
-        _cities.remove(city)
-    }
+    override fun onUserLoaded(user: User) { _user.value = user }
+    override fun onCityAdded(city: City) { _cities[city.name] = city }
+    override fun onCityRemoved(city: City) { _cities.remove(city.name) }
 
 
 }

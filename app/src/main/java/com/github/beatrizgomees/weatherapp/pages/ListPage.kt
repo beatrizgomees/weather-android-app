@@ -24,19 +24,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.remember
 import com.github.beatrizgomees.weatherapp.model.City
+import com.github.beatrizgomees.weatherapp.repo.Repository
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 
 @Composable
 fun ListPage(viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
     val cityList = viewModel.cities
-    //val fbDB = remember { FBDatabase (viewModel) }
+    val repo = remember { Repository (viewModel) }
+
     LazyColumn (
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ){
         items(cityList){
-            city -> CityItem(city = city, onClick = { /*TODO*/ }, onClose = { fbDatabase.remove(city) })
+            city -> CityItem(city = city, onClick = { /*TODO*/ }, onClose = { repo.remove(city) })
         }
     }
 }
@@ -64,7 +66,7 @@ fun CityItem(
                 text = city.name,
                 fontSize = 24.sp)
             Text(modifier = Modifier,
-                text = city.weather,
+                text = city.weather!!,
                 fontSize = 16.sp)
         }
         IconButton(onClick = onClose) {

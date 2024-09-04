@@ -31,6 +31,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.beatrizgomees.weatherapp.activitys.ui.theme.WeatherAppTheme
 import com.github.beatrizgomees.weatherapp.model.City
+import com.github.beatrizgomees.weatherapp.repo.Repository
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 import com.github.beatrizgomees.weatherapp.ui.CityDialog
 import com.github.beatrizgomees.weatherapp.ui.nav.BottomNavBar
@@ -50,14 +51,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             val mainViewModel: MainViewModel by viewModels()
             val fbDB = remember { FBDatabase (mainViewModel) }
+            val repo = remember { Repository (mainViewModel) }
             if (!mainViewModel.loggedIn) {
                 this.finish()
             }
             val context = LocalContext.current
             val navController = rememberNavController()
             val currentRoute = navController.currentBackStackEntryAsState()
-            val showButton = currentRoute.value?.destination?.route !=
-                    BottomNavItem.MapPage.route
+
+
+            val showButton = currentRoute.value?.destination?.route !=  BottomNavItem.MapPage.route
             val launcher = rememberLauncherForActivityResult(contract =
             ActivityResultContracts.RequestPermission(), onResult = {} )
 
@@ -68,9 +71,9 @@ class MainActivity : ComponentActivity() {
             WeatherAppTheme {
                 if (showDialog) CityDialog(
                     onDismiss = { showDialog = false },
-                    onConfirm = { city ->
-
-                        if (city.isNotBlank()) fbDB.add(City(name = city, weather = "", location = LatLng(0.0,-0.0)))
+                    onConfirm = { cityName ->
+                        if (cityName.isNotBlank())
+                            repo.addCity(name = cityName)
                         showDialog = false
                     })
                 Scaffold(

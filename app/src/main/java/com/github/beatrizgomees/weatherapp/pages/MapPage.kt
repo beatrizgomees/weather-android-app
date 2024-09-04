@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import com.github.beatrizgomees.weatherapp.model.City
+import com.github.beatrizgomees.weatherapp.repo.Repository
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -31,6 +32,7 @@ fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Co
     val caruaru = LatLng(-8.27, -35.98)
     val joaopessoa = LatLng(-7.12, -34.84)
     val camPosState = rememberCameraPositionState ()
+    val repo = remember { Repository (viewModel) }
     //val fbDB = remember { FBDatabase (viewModel) }
     val hasLocationPermission by remember {
         mutableStateOf(
@@ -43,12 +45,7 @@ fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Co
     GoogleMap (modifier = Modifier.fillMaxSize(),
 
         cameraPositionState = camPosState,
-        onMapClick = { fbDatabase.add(  City(
-            name = buildString {
-                append("City:")
-                append(it.latitude)
-                append(it.longitude)
-            }, weather = "", location = it)) },
+        onMapClick = { repo.addCityLatLong(lat = it.latitude, lng = it.longitude)},
         properties = MapProperties(isMyLocationEnabled = hasLocationPermission),
         uiSettings = MapUiSettings(myLocationButtonEnabled = true),
         ) {
