@@ -18,7 +18,8 @@ class MainViewModel : ViewModel(), FBDatabase.Listener{
     private val _cities = getCities().toMutableStateList()
     private var _loggedIn = mutableStateOf(false)
     val loggedIn : Boolean
-    get() = _loggedIn.value
+        get() = _loggedIn.value
+
     private val listener = FirebaseAuth.AuthStateListener {
             firebaseAuth ->
         _loggedIn.value = firebaseAuth.currentUser != null
