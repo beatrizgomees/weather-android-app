@@ -1,6 +1,6 @@
 package com.github.beatrizgomees.weatherapp.api
 
-data class Location (
+data class APILocation (
     var id : String? = null,
     var name : String? = null,
     var region : String? = null,

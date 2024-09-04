@@ -18,6 +18,7 @@ class FBDatabase(private val listener: Listener? = null) {
         fun onUserLoaded(user: User)
         fun onCityAdded(city: City)
         fun onCityRemoved(city: City)
+
     }
     init {
         auth.addAuthStateListener { auth ->

@@ -38,7 +38,11 @@ fun ListPage(viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase)
             .padding(8.dp)
     ){
         items(cityList){
-            city -> CityItem(city = city, onClick = { /*TODO*/ }, onClose = { repo.remove(city) })
+            city ->
+            if (city.weather == null) {
+                repo.loadWeather(city)
+            }
+            CityItem(city = city, onClick = { /*TODO*/ }, onClose = { repo.remove(city) })
         }
     }
 }
@@ -66,7 +70,7 @@ fun CityItem(
                 text = city.name,
                 fontSize = 24.sp)
             Text(modifier = Modifier,
-                text = city.weather!!,
+                text = city.weather?.desc?:"carregando...",
                 fontSize = 16.sp)
         }
         IconButton(onClick = onClose) {

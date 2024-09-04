@@ -42,10 +42,12 @@ class MainViewModel : ViewModel(), FBDatabase.Listener, Repository.Listener{
     override fun onCityAdded(city: City) { _cities[city.name] = city }
     override fun onCityRemoved(city: City) { _cities.remove(city.name) }
 
+    override fun onCityUpdated(city: City) {
+        _cities.remove(city.name)
+        _cities[city.name] = city.copy()
+    }
 
 }
 
-private fun getCities() = List(30){
-        i -> City(name = "Cidade $i", weather = "Carregando Clima...")
-}
+
 
