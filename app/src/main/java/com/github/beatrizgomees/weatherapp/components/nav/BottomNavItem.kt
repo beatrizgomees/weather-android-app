@@ -1,4 +1,4 @@
-package com.github.beatrizgomees.weatherapp.ui.nav
+package com.github.beatrizgomees.weatherapp.components.nav
 
 
 import androidx.compose.material.icons.Icons

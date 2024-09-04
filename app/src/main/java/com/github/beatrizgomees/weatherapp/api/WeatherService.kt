@@ -1,7 +1,6 @@
 package com.github.beatrizgomees.weatherapp.api
 
 import android.util.Log
-import com.github.beatrizgomees.weatherapp.model.Location
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,7 +34,7 @@ class WeatherService {
             ) {
                 onResponse(response.body()?.get(0))
             }
-            override fun onFailure(call: Call<List<Location>?>,t: Throwable) {
+            override fun onFailure(call: Call<List<Location>?>, t: Throwable) {
                 Log.w("WeatherApp WARNING", "" + t.message)
                 onResponse(null)
             }

@@ -1,4 +1,4 @@
-package com.github.beatrizgomees.weatherapp.ui.nav.ui.theme
+package com.github.beatrizgomees.weatherapp.components.nav.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

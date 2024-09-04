@@ -1,4 +1,4 @@
-package com.github.beatrizgomees.weatherapp.ui
+package com.github.beatrizgomees.weatherapp.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

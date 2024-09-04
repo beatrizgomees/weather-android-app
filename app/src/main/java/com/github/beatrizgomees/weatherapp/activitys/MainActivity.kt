@@ -25,19 +25,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.beatrizgomees.weatherapp.activitys.ui.theme.WeatherAppTheme
-import com.github.beatrizgomees.weatherapp.model.City
 import com.github.beatrizgomees.weatherapp.repo.Repository
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
-import com.github.beatrizgomees.weatherapp.ui.CityDialog
-import com.github.beatrizgomees.weatherapp.ui.nav.BottomNavBar
-import com.github.beatrizgomees.weatherapp.ui.nav.BottomNavItem
-import com.github.beatrizgomees.weatherapp.ui.nav.MainNavHost
-import com.google.android.gms.maps.model.LatLng
+import com.github.beatrizgomees.weatherapp.components.CityDialog
+import com.github.beatrizgomees.weatherapp.components.nav.BottomNavBar
+import com.github.beatrizgomees.weatherapp.components.nav.BottomNavItem
+import com.github.beatrizgomees.weatherapp.components.nav.MainNavHost
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import androidx.compose.material3.FloatingActionButton as FloatingActionButton1

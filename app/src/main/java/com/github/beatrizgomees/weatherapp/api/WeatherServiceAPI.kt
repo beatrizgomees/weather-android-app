@@ -1,7 +1,6 @@
 package com.github.beatrizgomees.weatherapp.api
 
 import com.github.beatrizgomees.weatherapp.BuildConfig
-import com.github.beatrizgomees.weatherapp.model.Location
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

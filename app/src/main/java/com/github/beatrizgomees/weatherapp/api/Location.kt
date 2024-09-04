@@ -1,4 +1,4 @@
-package com.github.beatrizgomees.weatherapp.model
+package com.github.beatrizgomees.weatherapp.api
 
 data class Location (
     var id : String? = null,

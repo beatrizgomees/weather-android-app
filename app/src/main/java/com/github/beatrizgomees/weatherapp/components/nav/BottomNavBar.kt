@@ -1,4 +1,4 @@
-package com.github.beatrizgomees.weatherapp.ui.nav
+package com.github.beatrizgomees.weatherapp.components.nav
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.github.beatrizgomees.weatherapp.ui.nav.ui.theme.WeatherAppTheme
+import com.github.beatrizgomees.weatherapp.components.nav.ui.theme.WeatherAppTheme
 
 
 
