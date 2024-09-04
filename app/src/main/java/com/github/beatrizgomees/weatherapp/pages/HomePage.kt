@@ -1,5 +1,6 @@
 package com.github.beatrizgomees.weatherapp.pages
 
+import FBDatabase
 import android.app.Activity
 import android.content.Context
 import androidx.compose.foundation.background
@@ -23,7 +24,7 @@ import com.github.beatrizgomees.weatherapp.R
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 
 @Composable
-fun HomePage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context){
+fun HomePage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase){
     val activity = LocalContext.current as? Activity
     Column(
         modifier = Modifier
