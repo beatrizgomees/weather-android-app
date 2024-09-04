@@ -3,6 +3,7 @@ package com.github.beatrizgomees.weatherapp.repo
 import FBDatabase
 import com.github.beatrizgomees.weatherapp.api.WeatherService
 import com.github.beatrizgomees.weatherapp.model.City
+import com.github.beatrizgomees.weatherapp.model.Forecast
 import com.github.beatrizgomees.weatherapp.model.User
 import com.github.beatrizgomees.weatherapp.model.Weather
 import com.google.android.gms.maps.model.LatLng
@@ -47,6 +48,20 @@ class Repository(private var listener : Listener): FBDatabase.Listener {
         listener.onCityRemoved(city)
     }
 
+    fun loadForecast(city : City) {
+        weatherService.getForecast(city.name) { result ->
+            city.forecast = result?.forecast?.forecastday?.map {
+                Forecast(
+                    date = it.date ?: "00-00-0000",
+                    weather = it.day?.condition?.text ?: "Erro carregando!",
+                    tempMin = it.day?.mintemp_c ?: -1.0,
+                    tempMax = it.day?.maxtemp_c ?: -1.0,
+                    imgUrl = ("https:" + it.day?.condition?.icon)
+                )
+            }?.firstOrNull()
+            listener.onCityUpdated(city)
+        }
+    }
     fun loadWeather(city: City) {
         weatherService.getCurrentWeather(city.name) { apiWeather ->
             city.weather = Weather (
@@ -58,4 +73,6 @@ class Repository(private var listener : Listener): FBDatabase.Listener {
             listener.onCityUpdated(city)
         }
     }
+
+
 }

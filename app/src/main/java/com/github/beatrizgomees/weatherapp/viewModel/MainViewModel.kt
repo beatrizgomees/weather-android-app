@@ -13,11 +13,16 @@ import com.google.firebase.auth.auth
 class MainViewModel : ViewModel(), FBDatabase.Listener, Repository.Listener{
     private val _user = mutableStateOf (User("", ""))
     private val _cities = mutableStateMapOf<String, City>()
-    val cities : List<City>
-        get() = _cities.values.toList()
+    private var _city = mutableStateOf<City?>(null)
 
     val user : User
         get() = _user.value
+    val cities : List<City>
+        get() = _cities.values.toList()
+    var city: City?
+        get() = _city.value
+        set(tmp) { _city = mutableStateOf(tmp?.copy()) }
+
 
     private var _loggedIn = mutableStateOf(false)
 
@@ -45,6 +50,9 @@ class MainViewModel : ViewModel(), FBDatabase.Listener, Repository.Listener{
     override fun onCityUpdated(city: City) {
         _cities.remove(city.name)
         _cities[city.name] = city.copy()
+        if (_city.value?.name == city.name) {
+            _city.value = city.copy()
+        }
     }
 
 }
