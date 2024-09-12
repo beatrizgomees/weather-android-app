@@ -23,12 +23,18 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.remember
+import androidx.navigation.NavHostController
 import com.github.beatrizgomees.weatherapp.model.City
 import com.github.beatrizgomees.weatherapp.repo.Repository
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 
 @Composable
-fun ListPage(viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
+fun ListPage(modifier: Modifier = Modifier,
+             viewModel: MainViewModel,
+             context: Context,
+             repo : Repository,
+             navCtrl: NavHostController,
+             navController: NavHostController) {
     val cityList = viewModel.cities
     val repo = remember { Repository (viewModel) }
 

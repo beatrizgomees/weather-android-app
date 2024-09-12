@@ -17,11 +17,13 @@ class MainViewModel : ViewModel(), FBDatabase.Listener, Repository.Listener{
 
     val user : User
         get() = _user.value
+
     val cities : List<City>
         get() = _cities.values.toList()
+
     var city: City?
         get() = _city.value
-        set(tmp) { _city = mutableStateOf(tmp?.copy()) }
+        set(tmp) {_city = mutableStateOf(tmp?.copy()) }
 
 
     private var _loggedIn = mutableStateOf(false)

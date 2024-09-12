@@ -103,7 +103,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                         innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        MainNavHost(navController = navController, mainViewModel, context, fbDatabase = fbDB)
+                        MainNavHost(navController = navController, mainViewModel, context, repo = repo)
                     }
                 }
             }

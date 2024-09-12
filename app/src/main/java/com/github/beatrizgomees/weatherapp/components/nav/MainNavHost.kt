@@ -11,18 +11,23 @@ import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
 import com.github.beatrizgomees.weatherapp.pages.HomePage
 import com.github.beatrizgomees.weatherapp.pages.ListPage
 import com.github.beatrizgomees.weatherapp.pages.MapPage
+import com.github.beatrizgomees.weatherapp.repo.Repository
 
 @Composable
-fun MainNavHost(navController: NavHostController, viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
+fun MainNavHost(
+    navController: NavHostController,
+    viewModel: MainViewModel,
+    context: Context,
+    repo : Repository,) {
  NavHost(navController, startDestination = BottomNavItem.HomePage.route ){
      composable(route = BottomNavItem.HomePage.route){
-         HomePage(viewModel = viewModel, context = context, fbDatabase = fbDatabase)
+         HomePage(viewModel = viewModel, context = context, repo = repo)
      }
      composable(route = BottomNavItem.ListPage.route){
-         ListPage(viewModel = viewModel, context = context, fbDatabase = fbDatabase)
+         ListPage(viewModel = viewModel, context = context, repo =  repo, navCtrl = navController, navController = navController)
      }
      composable(route = BottomNavItem.MapPage.route){
-         MapPage(viewModel = viewModel, context = context, fbDatabase = fbDatabase)
+         MapPage(viewModel = viewModel, context = context, repo = repo)
         }
     }
 }

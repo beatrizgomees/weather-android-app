@@ -26,7 +26,7 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
+fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context,  repo : Repository) {
     val activity = LocalContext.current as? Activity
     val recife = LatLng(-8.05, -34.9)
     val caruaru = LatLng(-8.27, -35.98)
