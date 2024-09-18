@@ -60,11 +60,9 @@ fun HomePage(
         }
         if (viewModel.city == null ||
             viewModel.city!!.forecast == null) return
-        if (viewModel.city == null ||
-            viewModel.city!!.forecast == null) return
         LazyColumn {
-            items(viewModel.cities) { city ->
-                ForecastItem(city.forecast!!, onClick = { }, modifier = modifier )
+            items(viewModel.city!!.forecast!!) { forecast ->
+                ForecastItem(forecast, onClick = { }, modifier = modifier )
             }
         }
 

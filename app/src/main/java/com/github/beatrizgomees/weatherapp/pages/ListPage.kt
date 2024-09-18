@@ -2,6 +2,7 @@ package com.github.beatrizgomees.weatherapp.pages
 
 import FBDatabase
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
+import com.github.beatrizgomees.weatherapp.components.nav.BottomNavItem
 import com.github.beatrizgomees.weatherapp.model.City
 import com.github.beatrizgomees.weatherapp.repo.Repository
 import com.github.beatrizgomees.weatherapp.viewModel.MainViewModel
@@ -36,7 +38,7 @@ fun ListPage(modifier: Modifier = Modifier,
              navCtrl: NavHostController,
              navController: NavHostController) {
     val cityList = viewModel.cities
-    val repo = remember { Repository (viewModel) }
+
 
     LazyColumn (
         modifier = Modifier
@@ -46,9 +48,24 @@ fun ListPage(modifier: Modifier = Modifier,
         items(cityList){
             city ->
             if (city.weather == null) {
-                repo.loadWeather(city)
+                repo.loadForecast(city)
             }
-            CityItem(city = city, onClick = { /*TODO*/ }, onClose = { repo.remove(city) })
+            CityItem(
+                city = city,
+                onClick = {
+                    viewModel.city = city
+                    repo.loadForecast(city)
+                    navCtrl.navigate(BottomNavItem.HomePage.route) {
+                        navCtrl.graph.startDestinationRoute?.let {
+                            popUpTo(it) { saveState = true}
+                            restoreState = true
+                        }
+                        launchSingleTop = true
+                    } },
+                onClose = {
+                    repo.remove(city)
+                    Toast.makeText(context, city.name + " removida", Toast.LENGTH_LONG).show()
+                })
         }
     }
 }
