@@ -49,13 +49,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val context = LocalContext.current
             val mainViewModel: MainViewModel by viewModels()
             val fbDB = remember { FBDatabase (mainViewModel) }
-            val repo = remember { Repository (mainViewModel) }
+            val repo = remember { Repository(context, mainViewModel) }
             if (!mainViewModel.loggedIn) {
                 this.finish()
             }
-            val context = LocalContext.current
+
             val navController = rememberNavController()
             val currentRoute = navController.currentBackStackEntryAsState()
 

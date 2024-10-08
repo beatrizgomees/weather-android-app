@@ -29,7 +29,6 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context,  repo : Repository) {
     val camPosState = rememberCameraPositionState ()
-    val repo = remember { Repository (viewModel) }
     val hasLocationPermission by remember {
         mutableStateOf(
             ContextCompat.checkSelfPermission(context,
