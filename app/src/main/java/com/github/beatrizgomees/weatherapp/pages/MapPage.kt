@@ -28,13 +28,8 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context,  repo : Repository) {
-    val activity = LocalContext.current as? Activity
-    val recife = LatLng(-8.05, -34.9)
-    val caruaru = LatLng(-8.27, -35.98)
-    val joaopessoa = LatLng(-7.12, -34.84)
     val camPosState = rememberCameraPositionState ()
     val repo = remember { Repository (viewModel) }
-    //val fbDB = remember { FBDatabase (viewModel) }
     val hasLocationPermission by remember {
         mutableStateOf(
             ContextCompat.checkSelfPermission(context,

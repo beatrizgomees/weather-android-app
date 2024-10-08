@@ -38,11 +38,10 @@ fun HomePage(
 ) {
     Column {
         Row {
-            AsyncImage( // Substitui o Icon
-                model = viewModel.city?.weather?.imgUrl,
-                modifier = Modifier.size(100.dp),
-                error = painterResource(id = R.drawable.loading),
-                contentDescription = "Imagem"
+            Icon(
+                imageVector = Icons.Filled.AccountBox,
+                contentDescription = "Localized Description",
+                modifier = Modifier.size(130.dp)
             )
             val format = DecimalFormat("#.0")
 
