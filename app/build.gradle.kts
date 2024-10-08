@@ -5,6 +5,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp")
+
 
 }
 
@@ -40,11 +42,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "18" // Defina para Java 18
+    }
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(18)) // Altere para a versão desejada
+        }
     }
     buildFeatures {
         compose = true
@@ -52,6 +59,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
+
     }
     packaging {
         resources {
@@ -79,6 +87,8 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("com.google.firebase:firebase-auth:23.0.0")
     implementation("com.google.firebase:firebase-firestore:25.0.0")
+    implementation("androidx.room:room-common:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -110,8 +120,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.0.0")
     implementation("com.squareup.picasso:picasso:2.8")
     implementation ("androidx.work:work-runtime-ktx:2.8.0")
-
-
+    ksp("androidx.room:room-compiler:2.5.0")
 
 
 }
