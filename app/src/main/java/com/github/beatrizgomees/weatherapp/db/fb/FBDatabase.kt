@@ -18,12 +18,16 @@ class FBDatabase(private val listener: Listener? = null) {
         fun onUserLoaded(user: User)
         fun onCityAdded(city: City)
         fun onCityRemoved(city: City)
+        fun  onUserSignOut()
+        fun onCityUpdated(city: City)
+
 
     }
     init {
         auth.addAuthStateListener { auth ->
             if (auth.currentUser == null) {
                 citiesListReg?.remove()
+                listener?.onUserSignOut()
                 return@addAuthStateListener
             }
             val refCurrUser = db.collection("users")
@@ -38,6 +42,14 @@ class FBDatabase(private val listener: Listener? = null) {
                     if (ex != null) return@addSnapshotListener
                     snapshots?.documentChanges?.forEach { change ->
                         val fbCity = change.document.toObject(FBCity::class.java)
+                        when (change.type) {
+                            DocumentChange.Type.ADDED ->
+                                listener?.onCityAdded(fbCity.toCity())
+                            DocumentChange.Type.MODIFIED ->
+                                listener?.onCityUpdated(fbCity.toCity())
+                            DocumentChange.Type.REMOVED ->
+                                listener?.onCityRemoved(fbCity.toCity())
+                        }
                         if (change.type == DocumentChange.Type.ADDED) {
                             listener?.onCityAdded(fbCity.toCity())
                         } else if (change.type == DocumentChange.Type.REMOVED) {
@@ -69,5 +81,15 @@ class FBDatabase(private val listener: Listener? = null) {
         val uid = auth.currentUser!!.uid
         db.collection("users").document(uid).collection("cities")
             .document(city.name).delete()
+    }
+
+    fun update(city: City) {
+        if (auth.currentUser == null) throw RuntimeException("Not logged in!")
+        val uid = auth.currentUser!!.uid
+        val fbCity = city.toFBCity()
+        val changes = mapOf( "lat" to fbCity.lat, "lng" to fbCity.lng,
+            "monitored" to fbCity.monitored )
+        db.collection("users").document(uid)
+            .collection("cities").document(fbCity.name!!).update(changes)
     }
 }

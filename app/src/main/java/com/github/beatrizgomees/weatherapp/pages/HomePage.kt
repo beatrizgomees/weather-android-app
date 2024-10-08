@@ -13,11 +13,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,9 +46,24 @@ fun HomePage(
                 modifier = Modifier.size(130.dp)
             )
             val format = DecimalFormat("#.0")
+            val isMonitored = viewModel.city?.isMonitored
 
+            val icon: ImageVector = if(isMonitored == true) {
+                Icons.Outlined.Favorite
+            } else {
+                Icons.Outlined.FavoriteBorder
+            }
             Column {
                 Spacer(modifier = Modifier.size(20.dp))
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "Monitor?",
+                    modifier = Modifier.size(32.dp)
+                        .clickable (enabled = viewModel.city != null) {
+                            repo.update(viewModel.city!!
+                                .copy(isMonitored = !isMonitored!!))
+                        }
+                )
                 Text(
                     text = viewModel.city?.name ?: "Selecione uma Cidade...",
                     fontSize = 24.sp)

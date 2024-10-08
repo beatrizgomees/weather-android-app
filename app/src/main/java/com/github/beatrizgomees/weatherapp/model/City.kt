@@ -11,4 +11,5 @@ data class City(
     var img_url: String? = null,
     var bitmap: Bitmap? = null,
     var forecast: List<Forecast>? = null,
+    var isMonitored: Boolean? = false
 )

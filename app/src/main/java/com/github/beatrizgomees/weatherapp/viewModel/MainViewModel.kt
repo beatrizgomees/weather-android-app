@@ -55,8 +55,17 @@ class MainViewModel : ViewModel(), FBDatabase.Listener, Repository.Listener{
         _cities.remove(city.name)
         _cities[city.name] = city.copy()
         if (_city.value?.name == city.name) {
-            _city.value = city.copy()
+            _city.value = city.copy(
+                weather = if (city.weather != null) city.weather
+                else _city.value?.weather,
+                forecast = if (city.forecast != null) city.forecast
+                else _city.value?.forecast
+            )
         }
+    }
+
+    override fun onUserSignOut() {
+        TODO("Not yet implemented")
     }
 
 }
