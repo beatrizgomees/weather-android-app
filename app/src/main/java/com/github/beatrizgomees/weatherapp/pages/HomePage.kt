@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -61,11 +60,17 @@ fun HomePage(
                 )
             }
         }
-        if (viewModel.city == null ||
-            viewModel.city!!.forecast == null) return
-        LazyColumn {
-            items(viewModel.city!!.forecast!!) { forecast ->
-                ForecastItem(forecast, onClick = { }, modifier = modifier )
+        //        if (viewModel.city == null ||
+        //        viewModel.city!!.forecast == null) return
+        viewModel.city?.forecast?.let { forecasts ->
+            LazyColumn {
+                items(forecasts) { forecast ->
+                    ForecastItem(
+                        forecast = forecast,
+                        onClick = { },
+                        modifier = modifier
+                    )
+                }
             }
         }
 
