@@ -3,6 +3,7 @@ package com.github.beatrizgomees.weatherapp.pages
 import android.content.Context
 import android.icu.text.DecimalFormat
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,11 +16,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -36,9 +43,19 @@ fun HomePage(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel,
     context: Context,
-    repo : Repository
+    repo : Repository,
+    isMonitoredState: MutableState<Boolean>
 ) {
+    val isMonitored = viewModel.city?.isMonitored ?: false
+    // Definir o ícone com base no estado de monitoramento
+    val icon: ImageVector = if (isMonitored == true) {
+        Icons.Outlined.Favorite
+    } else {
+        Icons.Outlined.FavoriteBorder
+    }
     Column {
+        Spacer(modifier = Modifier.size(20.dp))
+
         Row {
             Icon(
                 imageVector = Icons.Filled.AccountBox,
@@ -46,36 +63,24 @@ fun HomePage(
                 modifier = Modifier.size(130.dp)
             )
             val format = DecimalFormat("#.0")
-            val isMonitored = viewModel.city?.isMonitored
 
-            val icon: ImageVector = if(isMonitored == true) {
-                Icons.Outlined.Favorite
-            } else {
-                Icons.Outlined.FavoriteBorder
-            }
             Column {
-                Spacer(modifier = Modifier.size(20.dp))
-                Icon(
-                    imageVector = icon,
-                    contentDescription = "Monitor?",
-                    modifier = Modifier.size(32.dp)
-                        .clickable (enabled = viewModel.city != null) {
-                            repo.update(viewModel.city!!
-                                .copy(isMonitored = !isMonitored!!))
-                        }
-                )
                 Text(
                     text = viewModel.city?.name ?: "Selecione uma Cidade...",
                     fontSize = 24.sp)
                 Spacer(modifier = Modifier.size(10.dp))
+                IsMonitored(viewModel = viewModel, repo =  repo, isMonitoredState =  isMonitoredState)
                 Text(
                     text = viewModel.city?.weather?.desc?:"...",
                     fontSize = 20.sp)
                 Spacer(modifier = Modifier.size(10.dp))
+                /*
                 Text(
                     text = "Temp: " + viewModel.city?.weather?.temp + "°C",
                     fontSize = 20.sp
                 )
+
+                 */
             }
         }
         //        if (viewModel.city == null ||
@@ -145,4 +150,35 @@ fun ForecastItem(
             }
         }
     }
+}
+
+
+@Composable
+fun IsMonitored(modifier: Modifier = Modifier,
+                viewModel: MainViewModel,
+                repo: Repository,
+                isMonitoredState: MutableState<Boolean>,
+
+                ){
+
+    Button(
+        onClick = {
+            if (viewModel.city != null) {
+                isMonitoredState.value = !isMonitoredState.value
+
+                // Inverter o status de monitoramento
+                val updatedCity = viewModel.city!!.copy(isMonitored = !isMonitoredState.value)
+                repo.update(updatedCity)  // Atualizar no repositório
+
+            }
+        },
+        colors = ButtonDefaults.buttonColors(
+            containerColor =  if (isMonitoredState.value == true) Color.Green else Color.Red,
+            contentColor = Color.White  // Cor do texto
+        ),
+        modifier = Modifier.padding(16.dp) // Espaçamento do botão
+    ) {
+        Text(text = if (isMonitoredState.value == true) "Stop Monitoring" else "Start Monitoring")
+    }
+
 }

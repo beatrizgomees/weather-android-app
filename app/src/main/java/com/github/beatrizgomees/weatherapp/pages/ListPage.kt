@@ -23,6 +23,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
@@ -39,7 +40,9 @@ fun ListPage(modifier: Modifier = Modifier,
              context: Context,
              repo : Repository,
              navCtrl: NavHostController,
-             navController: NavHostController) {
+             navController: NavHostController,
+             isMonitoredState: MutableState<Boolean>
+             ) {
     val cityList = viewModel.cities
 
 

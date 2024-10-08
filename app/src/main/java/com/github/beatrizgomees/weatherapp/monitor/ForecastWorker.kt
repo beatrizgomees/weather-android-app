@@ -11,16 +11,21 @@ import androidx.work.WorkerParameters
 import com.github.beatrizgomees.weatherapp.R
 import com.github.beatrizgomees.weatherapp.activitys.MainActivity
 
-class ForecastWorker(context: Context, params: WorkerParameters) : Worker(context,
-    params) {
+class ForecastWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     companion object {
         private const val CHANNEL_ID: String = "WEATHER_APP"
     }
+
+    init {
+        createNotificationChannel() // Mova para o construtor
+    }
+
     override fun doWork(): Result {
         val cityName = inputData.getString("city") ?: return Result.failure()
         showNotification(cityName)
         return Result.success()
     }
+
     private fun showNotification(cityName: String) {
         val newIntent = Intent(this.applicationContext,
             MainActivity::class.java)

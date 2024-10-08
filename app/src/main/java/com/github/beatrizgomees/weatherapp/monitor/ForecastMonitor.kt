@@ -18,15 +18,21 @@ class ForecastMonitor (context: Context) : Repository.Listener {
             as NotificationManager
     private fun updateMonitor(city: City) {
         cancelCity(city)
+
         if (!city.isMonitored!!) return;
-        val inputData = Data.Builder().putString("city", city.name).build()
-        val request = PeriodicWorkRequestBuilder<ForecastWorker>(
-            repeatInterval = 15, repeatIntervalTimeUnit = TimeUnit.MINUTES
-        ).setInitialDelay(
-            duration = 10, timeUnit = TimeUnit.SECONDS
-        ).setInputData(inputData).build()
-        wm.enqueueUniquePeriodicWork(city.name,
-            ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, request )
+        else {
+            val inputData = Data.Builder().putString("city", city.name).build()
+            val request = PeriodicWorkRequestBuilder<ForecastWorker>(
+                repeatInterval = 15, repeatIntervalTimeUnit = TimeUnit.MINUTES
+            ).setInitialDelay(
+                duration = 10, timeUnit = TimeUnit.SECONDS
+            ).setInputData(inputData).build()
+
+            wm.enqueueUniquePeriodicWork(
+                city.name,
+                ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, request
+            )
+        }
     }
     private fun cancelCity(city : City) {
         wm.cancelUniqueWork(city.name)
