@@ -57,21 +57,24 @@ fun HomePage(
         Spacer(modifier = Modifier.size(20.dp))
 
         Row {
-            Icon(
-                imageVector = Icons.Filled.AccountBox,
-                contentDescription = "Localized Description",
-                modifier = Modifier.size(130.dp)
+            AsyncImage(
+                model = viewModel.city?.weather?.imgUrl,
+                modifier = Modifier.size(100.dp),
+                error = painterResource(id = R.drawable.bea),
+                contentDescription = "Image"
             )
             val format = DecimalFormat("#.0")
-
+            Spacer(modifier = Modifier.size(10.dp))
             Column {
+
                 Text(
                     text = viewModel.city?.name ?: "Selecione uma Cidade...",
                     fontSize = 24.sp)
                 Spacer(modifier = Modifier.size(10.dp))
+
                 IsMonitored(viewModel = viewModel, repo =  repo, isMonitoredState =  isMonitoredState)
                 Text(
-                    text = viewModel.city?.weather?.desc?:"...",
+                    text = viewModel.city?.weather?.desc?:"",
                     fontSize = 20.sp)
                 Spacer(modifier = Modifier.size(10.dp))
                 /*

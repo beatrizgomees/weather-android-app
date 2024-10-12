@@ -12,27 +12,21 @@ import com.github.beatrizgomees.weatherapp.model.User
 import com.github.beatrizgomees.weatherapp.repo.Repository
 import java.util.concurrent.TimeUnit
 
-class ForecastMonitor (context: Context) : Repository.Listener {
+class ForecastMonitor(context: Context) : Repository.Listener {
     private val wm = WorkManager.getInstance(context)
     private val nm = context.getSystemService(Context.NOTIFICATION_SERVICE)
             as NotificationManager
     private fun updateMonitor(city: City) {
         cancelCity(city)
-
-        if (!city.isMonitored!!) return;
-        else {
-            val inputData = Data.Builder().putString("city", city.name).build()
-            val request = PeriodicWorkRequestBuilder<ForecastWorker>(
-                repeatInterval = 15, repeatIntervalTimeUnit = TimeUnit.MINUTES
-            ).setInitialDelay(
-                duration = 10, timeUnit = TimeUnit.SECONDS
-            ).setInputData(inputData).build()
-
-            wm.enqueueUniquePeriodicWork(
-                city.name,
-                ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, request
-            )
-        }
+        if (!city?.isMonitored!!) return;
+        val inputData = Data.Builder().putString("city", city.name).build()
+        val request = PeriodicWorkRequestBuilder<ForecastWorker>(
+            repeatInterval = 5, repeatIntervalTimeUnit = TimeUnit.SECONDS
+        ).setInitialDelay(
+            duration = 10, timeUnit = TimeUnit.SECONDS
+        ).setInputData(inputData).build()
+        wm.enqueueUniquePeriodicWork(city.name,
+            ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, request )
     }
     private fun cancelCity(city : City) {
         wm.cancelUniqueWork(city.name)
@@ -42,7 +36,7 @@ class ForecastMonitor (context: Context) : Repository.Listener {
         wm.cancelAllWork()
         nm.cancelAll()
     }
-    override fun onUserLoaded(user: User) {  /* DO NOTHING */  }
+    override fun onUserLoaded(user: User) { /* DO NOTHING */ }
     override fun onUserSignOut() = cancelAll()
     override fun onCityAdded(city: City) = updateMonitor(city)
     override fun onCityRemoved(city: City) = cancelCity(city)

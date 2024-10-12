@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,6 +24,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.painterResource
@@ -41,59 +44,54 @@ fun ListPage(modifier: Modifier = Modifier,
              repo : Repository,
              navCtrl: NavHostController,
              navController: NavHostController,
-             isMonitoredState: MutableState<Boolean>
-             ) {
+             isMonitoredState: MutableState<Boolean>) {
     val cityList = viewModel.cities
-
-
-    LazyColumn (
+    LazyColumn(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(8.dp)
-    ){
-        items(cityList){
-            city ->
+    ) {
+        items(cityList) { city ->
             if (city.weather == null) {
-                repo.loadForecast(city)
-            }
-            CityItem(
-                city = city,
+                repo.loadWeather(city) }
+            CityItem(city = city,
+                onClose = { repo.remove(city) },
                 onClick = {
                     viewModel.city = city
                     repo.loadForecast(city)
                     navCtrl.navigate(BottomNavItem.HomePage.route) {
                         navCtrl.graph.startDestinationRoute?.let {
-                            popUpTo(it) { saveState = true}
+                            popUpTo(it) { saveState = true }
                             restoreState = true
                         }
+
+                        city.weather
                         launchSingleTop = true
-                    } },
-                onClose = {
-                    repo.remove(city)
-                    Toast.makeText(context, city.name + " removida", Toast.LENGTH_LONG).show()
-                })
+                    }
+                },
+                viewModel = viewModel)
         }
     }
 }
+
+
 @Composable
 fun CityItem(
     city: City,
     onClick: () -> Unit,
     onClose: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .clickable { onClick() },
+        modifier = modifier.fillMaxWidth().padding(8.dp).clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
             model = city.weather?.imgUrl,
             modifier = Modifier.size(75.dp),
             error = painterResource(id = R.drawable.loading),
-            contentDescription = "Imagem"
+            contentDescription = "Image"
         )
         Spacer(modifier = Modifier.size(12.dp))
         Column(modifier = modifier.weight(1f)) {
@@ -101,13 +99,16 @@ fun CityItem(
                 text = city.name,
                 fontSize = 24.sp)
             Text(modifier = Modifier,
-                text = city.weather?.desc?:"carregando...",
+                text = city.weather?.desc?:"Carregando...",
                 fontSize = 16.sp)
         }
         IconButton(onClick = onClose) {
             Icon(Icons.Filled.Close, contentDescription = "Close")
         }
+        Icon(
+            imageVector = if (city?.isMonitored == true) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+            contentDescription = "Monitor?",
+            modifier = Modifier.size(32.dp)
+        )
     }
 }
-
-
